@@ -87,13 +87,16 @@ function verificarCompatibilidade(recinto, animal, quantidade) {
     }
     
     if(animal.espécie === "HIPOPOTAMO") {
-        if(recinto != Recintos[3] && recinto.animais_existentes.length > 0) {
+        //Se for Savana e rio não é necessário verificar se está vázio
+        if(recinto != Recintos[3] && (recinto.animais_existentes.length > 0 || recinto.animais_existentes[0].animal != animal.espécie)) {
             return false;
         }
         return true;
     }
-    if(animal.espécie === "MACACO" && quantidade === 0){
-        if(recinto.animais_existentes.length <= 0)
+
+    //O macaco não pode ficar sozinho
+    if(animal.espécie === "MACACO" && quantidade === 1){
+        if(recinto.animais_existentes.length === 0)
             return false;
     }
     return true;
